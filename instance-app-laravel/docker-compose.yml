@@ -1,0 +1,18 @@
+version: '2'
+services:
+  solutis-instance-app-src:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+#    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+  solutis-instance-app-server:
+    build:
+      context: ./
+      dockerfile: web.dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    ports:
+      - 8181:80
