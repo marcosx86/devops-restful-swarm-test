@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-    //
+    protected $fillable = ['nome', 'email', 'senha', 'datanasc'];
+    
+    protected $hidden = ['senha'];
+    
+    protected $dates = ['datanasc'];
 }
