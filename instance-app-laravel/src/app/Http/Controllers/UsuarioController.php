@@ -5,18 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Usuario;
-use App\Http\Resources\Usuario as UsuarioResource;
+
+use DB;
 
 class UsuarioController extends Controller
 {
-    public function index()
+    public function lista()
     {
-        $usuarios = Usuario::query()->get();
-        return response()->json($usuarios);
+        //$usuarios = Usuario::query()->get();
+        //return response()->json($usuarios);
+        
+        return DB::table('usuarios')->get();
     }
     
-    public function show($id)
+    public function novo(Request $request)
     {
-        return new UsuarioResource(Usuario::find($id));
+    	$data = sizeof($_POST) > 0 ? $_POST : json_decode($request->getContent(), true);
+ 
+    	return DB::table('usuarios')->insertGetId($data);
+    }
+ 
+    public function editar($id, Request $request)
+    {
+        $data = sizeof($_POST) > 0 ? $_POST : json_decode($request->getContent(), true);
+
+        $res = DB::table('usuarios')
+                ->where('id',$id)
+                ->update($data);
+
+        return ["status" => ($res) ? 'ok' : 'erro'];
     }
 }

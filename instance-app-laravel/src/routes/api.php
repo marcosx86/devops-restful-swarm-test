@@ -17,6 +17,6 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-//Route::get('/usuarios/{id}', 'UsuarioController@show');
-
-Route::resource('usuarios', 'UsuarioController');
+Route::get('usuarios', 'UsuarioController@lista');
+Route::post('usuarios', 'UsuarioController@novo');
+Route::put('usuario/{id}', 'UsuarioController@editar');
