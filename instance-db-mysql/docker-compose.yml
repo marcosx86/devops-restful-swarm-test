@@ -1,24 +1,20 @@
 version: '3.3'
-volumes:
-  data:
 services:
-  solutis-instance-db-mysql:
+  node-database:
     image: mysql:5.6
     ports:
-      - "3316:3306"
+      - 3316:3306
     volumes:
       - ./mysql-data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password
-  solutis-instance-db-mysql-gui:
+  node-phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     links:
-      - solutis-instance-db-mysql
+      - node-database
     ports:
-      - 810:80
+      - 800:80
     environment:
-      - PMA_ARBITRARY=1
-      - PMA_PORT=3316
-#      - PMA_HOST=solutis-instance-db-mysql
-#      - PMA_USER=root
-#      - PMA_PASSWORD=password
+      - PMA_HOST=node-database
+      - PMA_USER=root
+      - PMA_PASSWORD=password
