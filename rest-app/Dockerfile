@@ -16,12 +16,12 @@ WORKDIR /var/www/html
 
 COPY . ./
 
-RUN curl https://getcomposer.org/download/1.6.3/composer.phar -o ./composer.phar && php composer.phar install --no-dev
-RUN rm apache-config.conf composer.phar
-RUN chown www-data: -R .
+RUN curl https://getcomposer.org/download/1.6.3/composer.phar -o ./composer.phar && php composer.phar install --no-dev && rm -v composer.phar
+RUN rm apache-config.conf && chown www-data: -R .
+RUN mv env.renameme .env && php artisan key:generate && php artisan optimize
 
 EXPOSE 80
 
-HEALTHCHECK --interval=5m --timeout=3s \
+HEALTHCHECK --interval=10s --timeout=3s \
   CMD curl -f http://localhost/ || exit 1
 
