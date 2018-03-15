@@ -7,6 +7,6 @@ docker swarm init
 docker stack deploy -c docker-compose.yml letsdevops
 ```
 
-phpMyAdmin @ http://localhost:800
+phpMyAdmin @ http://127.0.0.1:800
 
-Aplicação Laravel+Angular @ http://localhost:8000
+Aplicação Laravel+Angular @ http://127.0.0.1:8000
